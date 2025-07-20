@@ -53,6 +53,21 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+exports.getBestProducts = async (req, res) => {
+  try {
+    const idsEspecificos = ['687145a4ec565ec590dac5df', '687d164cff613900ee8b7a7c', '687146b9ec565ec590dac614'];
+    const Products = await Product.find({ 
+      _id: { $in: idsEspecificos } 
+    });
+    return res.json({ Products });
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Hubo un error al consultar los productos",
+      error: error.message,
+    });
+  }
+};
+
 exports.getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id); // Usar req.params.id
