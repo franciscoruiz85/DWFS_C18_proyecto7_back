@@ -8,6 +8,7 @@ const {
     getUsers,
     updateUser,
     adminUser,
+    deleteUser,
     logoutUser
 } = require('../controllers/user.controller');
 
@@ -17,6 +18,7 @@ userRouter.get('/verify-user', auth, verifyUser);
 userRouter.get('/', auth, getUsers);
 userRouter.put('/update', auth, updateUser);
 userRouter.put('/admin-user', auth, adminUser);
+userRouter.delete('/', auth, deleteUser);
 userRouter.post('/logout', logoutUser);
 
 module.exports = userRouter;

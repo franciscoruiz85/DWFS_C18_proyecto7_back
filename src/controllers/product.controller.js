@@ -53,33 +53,48 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.updateProductById = async (req, res) => {
-  const { productname, type, cc, price } = req.body;
+exports.getProductById = async (req, res) => {
   try {
-    const updateProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      { productname, type, cc, price },
-      { new: true, runValdators: true }
+    const product = await Product.findById(req.params.id); // Usar req.params.id
+    if (!product) {
+      return res.status(404).json({ message: "Producto no encontrado" });
+    }
+    return res.json(product);
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+};
+
+exports.updateProductById = async (req, res) => {
+  const { productname, type, cc, price, description, image, currency, slug } = req.body;
+  try {
+    await Product.findByIdAndUpdate(
+      req.body.id,
+      { productname, type, cc, price, description, image, currency, slug },
+      { new: true }
     );
-    return res.json({ updateProduct });
+    return res.json({ msg: "Producto actualizado correctamente." });
   } catch (error) {
     return res.status(500).json({
-      msg: "Hubo un error al actualizar el producto",
-      error: error.message,
+      msg: "Hubo un error al actualizar el producto.",
+      error: error.message
     });
   }
 };
 
 exports.deleteProduct = async (req, res) => {
   try {
-    const deleteProduct = await Product.findByIdAndDelete(req.params.id);
-    if (!deleteProduct) {
-      return res.status(404).json({ message: "Producto no encontrado" });
+    const { id } = req.body;
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({ msg: "Producto no encontrado." });
     }
-    return res.status(200).json({ deleteProduct });
+    return res.status(200).json({ msg: "Producto eliminado correctamente." });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
-      msg: "Hubo un error al eliminar el producto",
+      msg: "Hubo un error al eliminar el producto.",
       error: error.message,
     });
   }

@@ -152,6 +152,23 @@ exports.adminUser = async (req, res) => {
   }
 };
 
+exports.deleteUser = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ msg: "Usuario no encontrado." });
+    }
+    return res.status(200).json({ msg: "Usuario eliminado correctamente." });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      msg: "Hubo un error al eliminar el usuario.",
+      error: error.message
+    })
+  }
+};
+
 exports.logoutUser = (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
