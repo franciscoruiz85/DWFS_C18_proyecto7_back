@@ -1,4 +1,4 @@
-﻿# DWFS_C18_proyecto7_back - API REST con Node.js, Express y MongoDB
+﻿# DWFS_C18_proyecto7_back - API REST con Node.js, Express, MongoDB y Stripe
 
 Este proyecto es una API RESTful desarrollada como parte del curso de Desarrollo Web Full Stack (DWFS), Cohort 18 de UDD. Proporciona endpoints para gestionar usuarios y productos, y con autenticación mediante JWT.
 
