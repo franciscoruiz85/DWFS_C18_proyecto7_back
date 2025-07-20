@@ -12,7 +12,8 @@
     "mongodb",
     "mongoose",
     "api",
-    "backend"
+    "backend",
+    "stripe"
   ],
   "author": "Francisco Ruiz",
   "license": "ISC",
